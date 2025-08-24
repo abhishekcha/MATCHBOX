@@ -23,3 +23,4 @@ call thhe connectDb function and connect ot database before starting application
 create a user schema in your project and user model
 create  POST /signup API to add data to database
 push some document using API call from postman
+error handling using try and catch.
