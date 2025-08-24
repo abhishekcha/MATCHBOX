@@ -8,3 +8,6 @@ explore rounting and use of ?, +, (), * in the routes
 use of regex in routes /a/, /.*fly$/
 reading the query params in the routes
 read the dynamic routes
+handling the multiple route handler..
+using next() function in router
+
