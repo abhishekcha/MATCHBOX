@@ -13,3 +13,13 @@ using next() function in router
 read about middlewafre in express.js
 how express js handle request bts(behind the sence),
 different between app.use and app.all()
+Error handling using app.use("/",(err,req,res,next)=>{}) note->always write at the end.
+
+
+craete a free cluster on mongodb official website (mongo atlass)
+install mongoose lib
+connect your application to the db <connection-url>/matchBox
+call thhe connectDb function and connect ot database before starting application on 3001.
+create a user schema in your project and user model
+create  POST /signup API to add data to database
+push some document using API call from postman
