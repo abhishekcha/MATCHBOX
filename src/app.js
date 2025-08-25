@@ -3,13 +3,11 @@ const { connectDB } = require("./config/database");
 const app = express(); // create web server
 const { User } = require("./models/user");
 
+app.use(express.json()); // middleware to parse JSON request body
+
 app.post("/signup", async (req, res) => {
-  const user = new User({
-    firstName: "sweta",
-    lastName: "singh",
-    emailId: "sweta@gmail.com",
-    password: "sweta@1234",
-  }); // new user document based on user model
+  
+  const user = new User(req.body) // create a new User document from request body
 
   try {
     await user.save(); // save the document to the database

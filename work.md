@@ -24,3 +24,8 @@ create a user schema in your project and user model
 create  POST /signup API to add data to database
 push some document using API call from postman
 error handling using try and catch.
+
+JS object vs JSON (difference)
+add the express.json middleware to your app
+make your signup API dynamic to recive data from the end user
+User.FindOne with duplicate email ids
