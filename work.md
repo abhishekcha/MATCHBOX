@@ -35,3 +35,10 @@ write a logic to handle GET POST PATCH DELETE API calls and test them on postman
  difference between patch and put.
  create a delete user API
  explore the mongoose doc for model  
+
+explore schema type from the doc...
+add required , unique, lowercase, min, minLength, trim
+add default
+create a customs validatye function for gender
+improve the DB schema - put all appropriate validation on each field in schema
+add timestamps to the userSchema
