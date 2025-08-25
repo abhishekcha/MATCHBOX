@@ -40,28 +40,42 @@ app.get("/feed", async (req, res) => {
 });
 
 // delete a user from the database
-app.delete("/user",async (req,res)=>{
-  const userId=req.body.userId;
-  try{
-    const user=await User.findByIdAndDelete(userId);
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const user = await User.findByIdAndDelete(userId);
     res.send("User deleted successfully");
-  }catch(err){
+  } catch (err) {
     res.status(400).send(" Error while deleting user:" + err.message);
   }
 });
 
 // update a user in the database
-app.patch("/user",async (req,res)=>{
-  const userId=req.body.userId;
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params?.userId;
   const data = req.body;
+
   try {
-    await User.findByIdAndUpdate({_id:userId}, data, {
-    runValidators: true,
+    const ALLOWED_UPDATES = [
+      "userId",
+      "photoUrl",
+      "about",
+      "gender",
+      "age",
+      "skills",
+    ];
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      ALLOWED_UPDATES.includes(k)
+    );
+    if (!isUpdateAllowed) {
+      return res.status(400).send("Invalid updates!");
+    }
+    await User.findByIdAndUpdate({ _id: userId }, data, {
+      runValidators: true,
     });
     res.send("User updated successfully");
   } catch (err) {
     res.status(400).send(" Error while updating user:" + err.message);
-    
   }
 });
 

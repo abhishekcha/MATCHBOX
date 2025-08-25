@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
       required: true,
-      minlength: 5,
+      minlength: 2,
       maxlength: 30,
     },
     lastName: {
@@ -16,10 +17,22 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true, // to avoid duplicate email ids
       trim: true, // to remove whitespace
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid email");
+        }
+      },
     },
     password: {
       type: String,
       required: true,
+      minlength: 8,
+      validate(value) {
+        // Use ES6 import for validator if using ES modules, otherwise require
+        if (!validator.isStrongPassword(value)) {
+          throw new Error("Password must be strong (min 8 chars, include uppercase, lowercase, number, and symbol)");
+        }
+      }
     },
     age: {
       type: Number,
@@ -43,7 +56,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "This is default about of the  user",
     },
-    skills: { 
+    skills: {
       type: [String],
     },
   },
