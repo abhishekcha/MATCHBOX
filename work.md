@@ -46,4 +46,4 @@ add API level validation on patch request & signup post API
 Data sanitizing-  add API validation for each field.
 install validator
 explore validator lib function and use validator func for password , email and etc(schema)
- 
+ never trust res.body..
