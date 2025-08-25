@@ -30,3 +30,8 @@ add the express.json middleware to your app
 make your signup API dynamic to recive data from the end user
 User.FindOne with duplicate email ids
 API - feed API - GET /feed - get all the users from the database.
+create a delete user API.
+write a logic to handle GET POST PATCH DELETE API calls and test them on postman.
+ difference between patch and put.
+ create a delete user API
+ explore the mongoose doc for model  
