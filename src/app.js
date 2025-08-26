@@ -2,16 +2,45 @@ const express = require("express");
 const { connectDB } = require("./config/database");
 const app = express(); // create web server
 const { User } = require("./models/user");
+const { validateSignUpData } = require("./utils/validation");
+const bcrypt = require("bcrypt");
+
 app.use(express.json()); // middleware to parse JSON request body
 
 app.post("/signup", async (req, res) => {
-  const user = new User(req.body); // create a new User document from request body
-
   try {
+    validateSignUpData(req);
+    const { firstName, lastName, emailId, password } = req.body;
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash,
+    }); // create a new User document from request body
     await user.save(); // save the document to the database
     res.send("data added successfully!");
   } catch (err) {
     res.status(400).send(" Error while saving data:" + err.message);
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+    const user = await User.findOne({ emailId: emailId });
+    if (!user) {
+      return res.status(400).send("Invalid Credentials");
+    }
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      return res.status(400).send("Invalid Credentials");
+    }
+    else{
+      res.send("Login successful");
+    }
+  } catch (err) {
+    res.status(400).send(" Error while login:" + err.message);
   }
 });
 

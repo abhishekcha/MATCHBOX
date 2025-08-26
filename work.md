@@ -47,3 +47,8 @@ Data sanitizing-  add API validation for each field.
 install validator
 explore validator lib function and use validator func for password , email and etc(schema)
  never trust res.body..
+ validate data in signup API
+ install bcrypt library
+ create a passwordhash using bcrypt.hash and save the user.
+ compare password and throw errors if email or password is invalid.
+ 
