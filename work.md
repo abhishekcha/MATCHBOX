@@ -52,3 +52,13 @@ explore validator lib function and use validator func for password , email and e
  create a passwordhash using bcrypt.hash and save the user.
  compare password and throw errors if email or password is invalid.
  
+ install cookie parser
+ jsut send a dummy cookie to user
+ create GET /profile API and check if you get a cookie back
+ install jsonwebtokens
+ in login api ,after email and password validation create a jst tokens and send it back to user
+ read the cookie inside ypur profile api and find the logged in user
+ userAuth middleware
+ add the userAuth middleware in profile api and a new connection requesst api
+ set the expiry of jwt token and set to 10 days 
+ 
