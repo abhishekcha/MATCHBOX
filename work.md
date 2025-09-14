@@ -61,4 +61,11 @@ explore validator lib function and use validator func for password , email and e
  userAuth middleware
  add the userAuth middleware in profile api and a new connection requesst api
  set the expiry of jwt token and set to 10 days 
+
+ create userschema method top getJWT()
+ 
+ explore for express.Router
+ create routes folder for managing auth profile request royters
+ create authRouter and many more in auth.js
+ import these router in app.js
  

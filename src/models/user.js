@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt=require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -30,9 +32,11 @@ const userSchema = new mongoose.Schema(
       validate(value) {
         // Use ES6 import for validator if using ES modules, otherwise require
         if (!validator.isStrongPassword(value)) {
-          throw new Error("Password must be strong (min 8 chars, include uppercase, lowercase, number, and symbol)");
+          throw new Error(
+            "Password must be strong (min 8 chars, include uppercase, lowercase, number, and symbol)"
+          );
         }
-      }
+      },
     },
     age: {
       type: Number,
@@ -64,7 +68,20 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+userSchema.methods.getJWT = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id }, "ABHI@1234", { expiresIn: "365d" });
+  return token;
+};
+userSchema.methods.validatePassword = async function (passwordInputByUser) {
+  const user = this;
+  const passwordHash = user.password;
+  const isPasswordMatch = await bcrypt.compare(
+    passwordInputByUser,
+    passwordHash
+  );
+  return isPasswordMatch;
+};
 const User = mongoose.model("User", userSchema);
 module.exports = {
   User,
