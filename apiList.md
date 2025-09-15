@@ -3,12 +3,12 @@
 ## authRouter
 - POST /signup
 - POST /login
-- PSOT /logout
+- POST /logout
 
 ## profileRouter
 - GET /profile/view
 - PATCH /profile/edit
-- PATCH /profile/password
+- PATCH /profile/password // forgot password API
 
 ## connectionRequestRouter
 - POST /request/send/intrested/ :userID

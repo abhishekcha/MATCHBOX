@@ -68,4 +68,9 @@ explore validator lib function and use validator func for password , email and e
  create routes folder for managing auth profile request royters
  create authRouter and many more in auth.js
  import these router in app.js
+ create POST /logout API
+ create PATCH /profile/edit
+ test all API
+ create PATCH /profile/password API => forgot password API
+ make you validate all data in every POST ,PATCH APIS
  
