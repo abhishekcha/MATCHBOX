@@ -74,3 +74,7 @@ explore validator lib function and use validator func for password , email and e
  create PATCH /profile/password API => forgot password API
  make you validate all data in every POST ,PATCH APIS
  
+ read more about index in mongoDb.
+ why do we need index.
+ what is advanatge and disadvantages of creating index
+ 
