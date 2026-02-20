@@ -77,4 +77,10 @@ explore validator lib function and use validator func for password , email and e
  read more about index in mongoDb.
  why do we need index.
  what is advanatge and disadvantages of creating index
+ think about corner cases.
  
+ write code with proper validation for post /request/review/:status/:requestId
+ thought process -> post vs get  
+read about ref and populate... both work as a relation ..
+create GET /request/recieved
+
