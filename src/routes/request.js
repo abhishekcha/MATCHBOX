@@ -32,7 +32,7 @@ requestRouter.post(
       if (existingConnectionRequest) {
         return res
           .status(400)
-          .send({ message: "Connection Request Already Exits" });
+          .send({ message: "Connection Request Already Exists!!" });
       }
       const connectionRequest = new ConnectionRequest({
         fromUserId,
