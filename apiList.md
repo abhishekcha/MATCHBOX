@@ -12,7 +12,7 @@
 
 ## connectionRequestRouter
 - POST /request/send/status/ :userID
--  POST /request/review/status/ :requestID
+- POST /request/review/status/ :requestID
 
 
 ## userRouter
@@ -22,4 +22,4 @@
 
 
 
-Staus: ignore , interested ,accepted , rejected
+Status: ignore , interested ,accepted , rejected
