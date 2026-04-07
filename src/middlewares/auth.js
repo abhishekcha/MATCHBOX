@@ -30,7 +30,7 @@ const userAuth = async (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
-      return res.status(401).send("Unauthorized: No token provided");
+      return res.status(401).send("Unauthorized: No token provided please login");
     }
     let decoded;
     try {
