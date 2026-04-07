@@ -65,7 +65,7 @@ requestRouter.post(
   userAuth,
   async (req, res) => {
     try {
-      const loggedInUserId = req.user._id;
+       const loggedInUserId = req.user._id;
       const { status, requestId } = req.params;
 
       const allowedStatus = ["accepted", "rejected"];
