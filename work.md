@@ -80,8 +80,14 @@ explore validator lib function and use validator func for password , email and e
  think about corner cases.
  
  write code with proper validation for post /request/review/:status/:requestId
- thought process -> post vs get  
+ thought process -> post vs get  (important)
 read about ref and populate... both work as a relation ..
-create GET /request/recieved
+create GET user/requests/received
+create GET user/connections
+
 
 mongodb-> .skip() and .limit() function
+
+write code with proper validation for post /request/review/:status/:requestId
+
+post vs 
