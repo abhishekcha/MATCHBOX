@@ -1,9 +1,10 @@
+
 const express = require("express");
 const userRouter = express.Router();
 const { userAuth } = require("../middlewares/auth");
 const connectionRequest = require("../models/connectionRequest");
-const USER_SAFE_DATA = "firstName lastName age gender";
-const {User}=require("../models/user");
+const USER_SAFE_DATA = "firstName lastName age gender bio photoUrl";
+const { User } = require("../models/user");
 // get all the pending connection requests for logged in user
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
@@ -14,13 +15,14 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
         toUserId: loggedInuser._id,
         status: "interested",
       })
-      .populate("fromUserId", ["firstName", "lastName", "age", "gender"]);
-    res.json({
+      .populate("fromUserId", USER_SAFE_DATA);
+    res.status(200).json({
+      success: true,
       message: "Connection Requests fetched successfully",
       data: connectionRequests,
     });
   } catch (err) {
-    req.status(400).send("ERROR:" + err.message);
+    res.status(400).json({ success: false, message: "ERROR:" + err.message });
   }
 });
 
@@ -37,16 +39,29 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       .populate("fromUserId", USER_SAFE_DATA)
       .populate("toUserId", USER_SAFE_DATA);
 
-    const data = connectionRequests.map((row) => {
+    const data = connectionRequests
+      .map((row) => {
+      if (!row.fromUserId || !row.toUserId) {
+        return null;
+      }
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
         return row.toUserId;
       }
       return row.fromUserId;
-    });
+      })
+      .filter(Boolean);
 
-    res.json({ data });
+    res.set("X-Total-Connections", String(data.length));
+    res.set("X-Response-Message", "Connections fetched successfully");
+
+    res.status(200).json({
+      success: true,
+      message: "Connections fetched successfully",
+      totalConnections: data.length,
+      data: data,
+    });
   } catch (err) {
-    req.status(400).send("ERROR:" + err.message);
+    res.status(400).json({ success: false, message: "ERROR:" + err.message });
   }
 });
 userRouter.get("/feed", userAuth, async (req, res) => {
@@ -73,7 +88,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     res.send(users);
     //res.json({ data: connectionRequests });
   } catch (err) {
-    res.status(400).json({message:err.message});
+    res.status(400).json({ message: err.message });
   }
 });
 
