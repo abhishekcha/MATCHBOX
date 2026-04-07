@@ -39,14 +39,22 @@ requestRouter.post(
         toUserId,
         status,
       });
+
       const data = await connectionRequest.save();
+
+      // const emailRes = await sendEmail.run(
+      //   "A new friend request from " + req.user.firstName,
+      //   req.user.firstName + " is " + status + " in " + toUser.firstName
+      // );
+      // console.log(emailRes);
+
       res.json({
         message:
-          req.user.firstName + "is " + status + " in " + toUser.firstName,
+          req.user.firstName + " is " + status + " in " + toUser.firstName,
         data,
       });
     } catch (err) {
-      res.status(400).send("Error: " + err.message);
+      res.status(400).send("ERROR: " + err.message);
     }
     // res.send(req.user.firstName + " send the connection request");
   }
@@ -57,7 +65,7 @@ requestRouter.post(
   userAuth,
   async (req, res) => {
     try {
-      const loggedInUserId = req.user;
+      const loggedInUserId = req.user._id;
       const { status, requestId } = req.params;
 
       const allowedStatus = ["accepted", "rejected"];
@@ -66,17 +74,21 @@ requestRouter.post(
           .status(400)
           .json({ message: "Invalid status type: " + status });
       }
-      connectionRequest = await ConnectionRequest.findOne({
+
+      const connectionRequest = await ConnectionRequest.findOne({
         _id: requestId,
         toUserId: loggedInUserId,
-        status:"interested",
+        status: "interested",
       });
-      if(!connectionRequest){
-        return res.status(404).json({message:"Connection request not found"});
+
+      if (!connectionRequest) {
+        return res.status(404).json({ message: "Connection request not found" });
       }
-      ConnectionRequest.status = status;
+
+      connectionRequest.status = status;
       const data = await connectionRequest.save();
-      res.json({message:"Connection request "+status, data});
+
+      res.json({ message: "Connection request " + status, data });
     } catch (err) {
       res.status(400).send("Error: " + err.message);
     }
