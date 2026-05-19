@@ -46,8 +46,8 @@ add API level validation on patch request & signup post API
 Data sanitizing-  add API validation for each field.
 install validator
 explore validator lib function and use validator func for password , email and etc(schema)
- never trust res.body..
- validate data in signup API
+never trust res.body..
+validate data in signup API
  install bcrypt library
  create a passwordhash using bcrypt.hash and save the user.
  compare password and throw errors if email or password is invalid.
@@ -90,4 +90,7 @@ mongodb-> .skip() and .limit() function
 
 write code with proper validation for post /request/review/:status/:requestId
 
-post vs 
+explore the $in, $and and etc.
+Pagination..
+
+/feed?page=1&limit=10=> means first 10 user 1-10
